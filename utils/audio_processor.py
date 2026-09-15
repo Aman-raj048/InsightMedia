@@ -16,7 +16,7 @@ def download_youtube_audio(url :str) ->str:
         },
 
         "remote_components": {
-        "ejs": "npm"
+            "ejs:npm": {}
         },
 
         "postprocessors": [
