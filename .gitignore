@@ -1,0 +1,15 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+vectore_db/
+downloads/
+*.wav
+*.mp4
+*.mkv
+*.mov
+*.avi
+*.mp3
+*.m4a
+uv.lock
+tempCodeRunnerFile*
