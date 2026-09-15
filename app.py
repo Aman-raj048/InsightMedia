@@ -113,7 +113,7 @@ st.markdown("""
 
 /* Sidebar Footer */
 .sidebar-footer {
-    position: fixed;
+    position: absoluteab;
     bottom: 20px;
     left: 16px;
     color: #9ca0aa;
