@@ -4,6 +4,7 @@ from core.transcriber import transcribe_all
 from core.summarizer import summarize, generate_title
 from core.extractor import extract_information
 from core.rag_engine import build_rag_chain, ask_question
+from core.youtube_transcript import get_youtube_transcript
 
 load_dotenv()
 
@@ -12,13 +13,31 @@ load_dotenv()
 def run_pipeline(source :str, language :str = "english") -> dict:
     print("starting AI Video Assistant")
 
-    chunks = process_input(source)
+    if source.startswith("http://") or source.startswith("https://"):
+        print("Detected YouTube URL.")
+        print("Fetching YouTube transcript...")
 
-    transcript = transcribe_all(chunks,language)
-    print(f"raw transcription (first 300 characters ) {transcript[:300]}")
+        transcript = get_youtube_transcript(
+            source,
+            language
+        )
+
+    else:
+        print("Detected local file.")
+        print("Processing audio/video...")
+
+        chunks = process_input(source)
+        transcript = transcribe_all(
+            chunks,
+            language
+        )
+
+    print(
+        f"raw transcription (first 300 characters): "
+        f"{transcript[:300]}"
+    )
 
     title = generate_title(transcript)
-
     summary = summarize(transcript)
 
     extracted = extract_information(transcript)

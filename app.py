@@ -1,20 +1,3 @@
-import shutil
-import subprocess
-import streamlit as st
-
-st.write("Node path:", shutil.which("node"))
-
-if shutil.which("node"):
-    result = subprocess.run(
-        ["node", "--version"],
-        capture_output=True,
-        text=True
-    )
-    st.write("Node version:", result.stdout)
-
-
-
-
 import os
 import tempfile
 from pathlib import Path
