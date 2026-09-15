@@ -1,5 +1,6 @@
 import re
-from youtube_transcript_api import YouTubeTranscriptApi
+import os
+import requests
 
 
 def extract_video_id(url: str) -> str:
@@ -19,25 +20,56 @@ def extract_video_id(url: str) -> str:
     raise ValueError("Invalid YouTube URL.")
 
 
-def get_youtube_transcript(url: str, language: str = "english") -> str:
+def get_youtube_transcript(
+    url: str,
+    language: str = "english"
+) -> str:
+
+    api_key = os.getenv("YOUTUBE_TRANSCRIPT_API_KEY")
+
+    if not api_key:
+        raise ValueError(
+            "YOUTUBE_TRANSCRIPT_API_KEY is not configured."
+        )
+
     video_id = extract_video_id(url)
 
-    api = YouTubeTranscriptApi()
+    endpoint = "https://www.youtubetranscript.dev/api/v2/transcribe"
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
 
     if language.lower() == "hinglish":
-        languages = ["hi", "en"]
+        language_code = "hi"
     else:
-        languages = ["en"]
+        language_code = "en"
 
-    transcript = api.fetch(
-        video_id,
-        languages=languages
+    payload = {
+        "video": video_id,
+        "language": language_code,
+        "source": "auto",
+        "allow_asr": True,
+    }
+
+    response = requests.post(
+        endpoint,
+        headers=headers,
+        json=payload,
+        timeout=60,
     )
 
-    text = " ".join(
-        snippet.text
-        for snippet in transcript
-    )
+    if response.status_code != 200:
+        raise ValueError(
+            f"YouTube transcript API error: "
+            f"{response.status_code} - {response.text}"
+        )
+
+    data = response.json()
+
+    transcript_data = data.get("data", {})
+    text = transcript_data.get("transcript", {}).get("text", "")
 
     if not text.strip():
         raise ValueError(
