@@ -15,6 +15,10 @@ def download_youtube_audio(url :str) ->str:
             "deno": {}
         },
 
+        "remote_components": {
+        "ejs": "npm"
+        },
+
         "postprocessors": [
             {
                 "key": "FFmpegExtractAudio",
