@@ -17,10 +17,16 @@ def run_pipeline(source :str, language :str = "english") -> dict:
         print("Detected YouTube URL.")
         print("Fetching YouTube transcript...")
 
-        transcript = get_youtube_transcript(
-            source,
-            language
-        )
+        try:
+            transcript = get_youtube_transcript(
+                source,
+                language
+            )
+        except Exception as e:
+            raise ValueError(
+                "YouTube transcript could not be fetched from the cloud. "
+                "Please upload the audio/video file instead."
+            )
 
     else:
         print("Detected local file.")
