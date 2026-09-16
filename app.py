@@ -113,7 +113,7 @@ st.markdown("""
 
 /* Sidebar Footer */
 .sidebar-footer {
-    margin-top: 100px !important;
+    
     padding: 15px 5px 5px 5px;
     color: #9ca0aa;
     font-size: 14px;
@@ -175,6 +175,7 @@ with st.sidebar:
 
     st.divider()
 
+    st.markdown("<div style='height: 100px;'></div>", unsafe_allow_html=True)
     st.markdown("""
     <div class="sidebar-footer">
         <div>InsightMedia • AI Video Assistant</div>
