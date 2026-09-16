@@ -114,7 +114,7 @@ st.markdown("""
 /* Sidebar Footer */
 /* Sidebar Footer */
 .sidebar-footer {
-    margin-top: 98px;
+    margin-top: 10px;
     padding: 15px 5px 5px 5px;
     color: #9ca0aa;
     font-size: 14px;
