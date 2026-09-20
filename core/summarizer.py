@@ -54,13 +54,17 @@ def generate_title(transcript: str) -> str:
             """
 You are a professional title generator.
 
-Create a short and meaningful title for the transcript.
+- Create a short and meaningful title for the transcript.
+- Write the title in English only.
+- Do not use Hindi or Hinglish.
 
 Rules:
 - Use ONLY information from the transcript.
 - Do not invent information.
 - Maximum 8 words.
 - Do not write a question.
+- Write the title in English only.
+- Do not use Hindi or Hinglish.
 - Return ONLY the title.
 """
         ),
@@ -128,6 +132,9 @@ STRICT RULES:
 - Each bullet should contain one important idea.
 - Keep the summary professional and easy to understand.
 - Output ONLY bullet points.
+- Write the entire summary in English only.
+- Do not use Hindi, Hinglish, or any other language.
+- Even if the transcript contains Hindi or mixed-language sentences, translate their meaning into English and include it in the English summary.
 """
         ),
         (
